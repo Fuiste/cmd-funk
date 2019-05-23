@@ -1,7 +1,7 @@
 import { CommandOutput } from "./types";
 export declare namespace Logger {
-    const sayHello: (ctx: import("./types").CommandContext) => void;
+    const sayHello: <CtxType>(ctx: import("./types").CommandContext<CtxType>) => void;
     const printToConsole: (output: CommandOutput) => void;
-    const progress: (prog: string, ctx: import("./types").CommandContext) => void;
-    const important: (log: string, ctx: import("./types").CommandContext) => void;
+    const progress: <CtxType>(prog: string, ctx: import("./types").CommandContext<CtxType>) => void;
+    const important: <CtxType>(log: string, ctx: import("./types").CommandContext<CtxType>) => void;
 }

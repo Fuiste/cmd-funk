@@ -1,25 +1,33 @@
-import { Command, CommandMap } from "./types";
+import { Command, CommandMap, CommandContext } from "./types";
 import { Marshallers } from "./util";
 import minimist from "minimist";
 
-export const getBaseCommand = async (context?: {
-  [key: string]: any;
-}): Promise<Command> => {
+export const getBaseCommand = async <CtxType>(
+  context?: CtxType
+): Promise<Command<CtxType>> => {
   // Grab base args
   const argv = minimist(process.argv.slice(2));
 
-  let args = argv._;
+  // Build extras
+  const ctxExtras = context ? context : ({} as CtxType);
+
+  return getBaseCommandWithContext({ ...ctxExtras, argv });
+};
+
+export const getBaseCommandWithContext = async <CtxType>(
+  ctx: CommandContext<CtxType>
+): Promise<Command<CtxType>> => {
+  let args = ctx.argv._;
   const cmd = args.shift();
-  const ctx = { ...context, argv };
 
   if (!cmd) throw "No command specified";
 
   return { cmd, args, ctx };
 };
 
-export const operateForCommand = async (
-  command: Command,
-  cmdMap: CommandMap
+export const operateForCommand = async <CtxType>(
+  command: Command<CtxType>,
+  cmdMap: CommandMap<CtxType>
 ) => {
   if (!cmdMap[command.cmd])
     return Marshallers.error("Invalid command", command.cmd);
@@ -31,7 +39,9 @@ export const operateForCommand = async (
   }
 };
 
-export const popCommand = (command: Command): Command => {
+export const popCommand = <CtxType>(
+  command: Command<CtxType>
+): Command<CtxType> => {
   if (command.args.length < 1) throw "Must specify a command";
   const cmd = command.args.shift();
 
@@ -45,5 +55,7 @@ export const popCommand = (command: Command): Command => {
   };
 };
 
-export const popAndOperate = async (command: Command, cmdMap: CommandMap) =>
-  operateForCommand(popCommand(command), cmdMap);
+export const popAndOperate = async <CtxType>(
+  command: Command<CtxType>,
+  cmdMap: CommandMap<CtxType>
+) => operateForCommand(popCommand(command), cmdMap);

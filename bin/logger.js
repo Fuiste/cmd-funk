@@ -22,8 +22,6 @@ var Logger;
         if (!util_1.Argparsers.silent(ctx.argv))
             console.log(util_1.Typeface.progress(prog));
     };
-    Logger.important = function (log, ctx) {
-        return console.log(util_1.Typeface.base(log));
-    };
+    Logger.important = function (log, ctx) { return console.log(util_1.Typeface.base(log)); };
 })(Logger = exports.Logger || (exports.Logger = {}));
 //# sourceMappingURL=logger.js.map

@@ -7,7 +7,7 @@ export declare namespace Argparsers {
     const getOutFilePath: (argv: minimist.ParsedArgs) => string;
 }
 export declare namespace FileOperations {
-    const writeRawToFile: (res: CommandOutput, ctx: import("./types").CommandContext) => void;
+    const writeRawToFile: <CtxType>(res: CommandOutput, ctx: import("./types").CommandContext<CtxType>) => void;
 }
 export declare namespace Marshallers {
     const error: (error: string, cmd?: string | undefined) => CommandOutput;

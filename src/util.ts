@@ -18,7 +18,10 @@ export namespace Argparsers {
 }
 
 export namespace FileOperations {
-  export const writeRawToFile = (res: CommandOutput, ctx: Command["ctx"]) => {
+  export const writeRawToFile = <CtxType>(
+    res: CommandOutput,
+    ctx: Command<CtxType>["ctx"]
+  ) => {
     Logger.progress(
       `Writing output to ${Argparsers.getOutFilePath(ctx.argv)}`,
       ctx

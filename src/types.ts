@@ -1,23 +1,17 @@
 import minimist from "minimist";
 
-export type Command = {
+export type Command<T> = {
   cmd: string;
   args: string[];
-  ctx: CommandContext;
+  ctx: CommandContext<T>;
 };
 
-export type CommandContext = {
-  [key: string]: any;
+export type CommandContext<T> = T & {
   argv: minimist.ParsedArgs;
 };
 
-export type CommandContextConstants = {
-  gqlApi: string;
-  awsRegion: string;
-};
-
-export type CommandMap = {
-  [key: string]: (c: Command) => CommandOutput | Promise<CommandOutput>;
+export type CommandMap<T> = {
+  [key: string]: (c: Command<T>) => CommandOutput | Promise<CommandOutput>;
   help: () => CommandOutput;
 };
 
@@ -27,4 +21,6 @@ export type CommandOutput = {
   error?: boolean;
 };
 
-export type OperatorFunction<Output> = (cmd: Command) => Promise<Output>;
+export type OperatorFunction<CtxType, Output> = (
+  cmd: Command<CtxType>
+) => Promise<Output>;

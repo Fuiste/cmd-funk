@@ -53,12 +53,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var util_1 = require("./util");
 var minimist_1 = __importDefault(require("minimist"));
 exports.getBaseCommand = function (context) { return __awaiter(_this, void 0, void 0, function () {
-    var argv, args, cmd, ctx;
+    var argv, ctxExtras;
     return __generator(this, function (_a) {
         argv = minimist_1.default(process.argv.slice(2));
-        args = argv._;
+        ctxExtras = context ? context : {};
+        return [2 /*return*/, exports.getBaseCommandWithContext(__assign({}, ctxExtras, { argv: argv }))];
+    });
+}); };
+exports.getBaseCommandWithContext = function (ctx) { return __awaiter(_this, void 0, void 0, function () {
+    var args, cmd;
+    return __generator(this, function (_a) {
+        args = ctx.argv._;
         cmd = args.shift();
-        ctx = __assign({}, context, { argv: argv });
         if (!cmd)
             throw "No command specified";
         return [2 /*return*/, { cmd: cmd, args: args, ctx: ctx }];
