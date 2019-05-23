@@ -48,55 +48,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var util_1 = require("./util");
 var minimist_1 = __importDefault(require("minimist"));
-var Execution;
-(function (Execution) {
-    var _this = this;
-    Execution.operateForCommand = function (command, cmdMap) { return __awaiter(_this, void 0, void 0, function () {
-        var e_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!cmdMap[command.cmd])
-                        return [2 /*return*/, util_1.Marshallers.error("Invalid command", command.cmd)];
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, cmdMap[command.cmd](command)];
-                case 2: return [2 /*return*/, _a.sent()];
-                case 3:
-                    e_1 = _a.sent();
-                    return [2 /*return*/, util_1.Marshallers.error(e_1, command.cmd)];
-                case 4: return [2 /*return*/];
-            }
-        });
-    }); };
-    Execution.getBaseCommand = function (context) { return __awaiter(_this, void 0, void 0, function () {
-        var argv, args, cmd, ctx;
-        return __generator(this, function (_a) {
-            argv = minimist_1.default(process.argv.slice(2));
-            args = argv._;
-            cmd = args.shift();
-            ctx = __assign({}, context, { argv: argv });
-            if (!cmd)
-                throw "No command specified";
-            return [2 /*return*/, { cmd: cmd, args: args, ctx: ctx }];
-        });
-    }); };
-    Execution.popCommand = function (command) {
-        if (command.args.length < 1)
-            throw "Must specify a command";
-        var cmd = command.args.shift();
-        // This should never happen
-        if (cmd === undefined)
-            throw "Command cannot be undefined";
-        return {
-            cmd: cmd,
-            args: command.args,
-            ctx: command.ctx,
-        };
+exports.getBaseCommand = function (context) { return __awaiter(_this, void 0, void 0, function () {
+    var argv, args, cmd, ctx;
+    return __generator(this, function (_a) {
+        argv = minimist_1.default(process.argv.slice(2));
+        args = argv._;
+        cmd = args.shift();
+        ctx = __assign({}, context, { argv: argv });
+        if (!cmd)
+            throw "No command specified";
+        return [2 /*return*/, { cmd: cmd, args: args, ctx: ctx }];
+    });
+}); };
+exports.operateForCommand = function (command, cmdMap) { return __awaiter(_this, void 0, void 0, function () {
+    var e_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!cmdMap[command.cmd])
+                    return [2 /*return*/, util_1.Marshallers.error("Invalid command", command.cmd)];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, cmdMap[command.cmd](command)];
+            case 2: return [2 /*return*/, _a.sent()];
+            case 3:
+                e_1 = _a.sent();
+                return [2 /*return*/, util_1.Marshallers.error(e_1, command.cmd)];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.popCommand = function (command) {
+    if (command.args.length < 1)
+        throw "Must specify a command";
+    var cmd = command.args.shift();
+    // This should never happen
+    if (cmd === undefined)
+        throw "Command cannot be undefined";
+    return {
+        cmd: cmd,
+        args: command.args,
+        ctx: command.ctx,
     };
-})(Execution = exports.Execution || (exports.Execution = {}));
+};
+exports.popAndOperate = function (command, cmdMap) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+    return [2 /*return*/, exports.operateForCommand(exports.popCommand(command), cmdMap)];
+}); }); };
 //# sourceMappingURL=execution.js.map
