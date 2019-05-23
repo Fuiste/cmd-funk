@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "A minimal functional command line library",
   "main": "bin/index.js",
-  "types": "bim/index.d.ts",
+  "types": "bin/index.d.ts",
   "scripts": {
     "clean": "rm -rf node_modules",
     "build": "tsc",
