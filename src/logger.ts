@@ -1,6 +1,5 @@
-import * as Typeface from "./util/typeface";
-import { Argparsers as Args } from "./util/argparsers";
-import { CommandOutput, Command } from "./types/command";
+import { Argparsers as Args, Typeface } from "./util";
+import { CommandOutput, Command } from "./types";
 import chalk from "chalk";
 import figlet from "figlet";
 

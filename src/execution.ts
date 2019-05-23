@@ -1,5 +1,5 @@
-import { Command, CommandMap } from "./types/command";
-import { Marshallers } from "./util/marshallers";
+import { Command, CommandMap } from "./types";
+import { Marshallers } from "./util";
 import minimist from "minimist";
 
 export namespace Execution {
