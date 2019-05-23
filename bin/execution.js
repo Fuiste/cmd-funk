@@ -53,9 +53,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var util_1 = require("./util");
 var minimist_1 = __importDefault(require("minimist"));
 /**
- * Generates a command object based upon the arguments provided in the command line.
+ * Generates a command object based upon the arguments provided in the command line
  *
- * @param context a custom command context, which will be available in operation logic.
+ * @param context a custom command context, which will be available in operation logic
  */
 exports.getBaseCommand = function (context) {
     // Grab base args
@@ -122,5 +122,27 @@ exports.popCommand = function (command) {
  */
 exports.popAndOperate = function (command, cmdMap) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
     return [2 /*return*/, exports.operateForCommand(exports.popCommand(command), cmdMap)];
+}); }); };
+/**
+ * Helper function which gets the base command and runs it agains a given command map, taking in an optional custom context
+ *
+ * @param cmdMap a command map upon which to operate
+ * @param context a custom command context, which will be available in operation logic
+ */
+exports.operateForBaseCommand = function (cmdMap, context) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+    return [2 /*return*/, exports.operateForCommand(exports.getBaseCommand(context), cmdMap)];
+}); }); };
+/**
+ * Helper function which handles running the base command against a given command map, then writes the output to the correct destination.
+ * @param cmdMap a command map upon which to operate
+ * @param context a custom command context, which will be available in operation logic
+ */
+exports.handleCommand = function (cmdMap, context) { return __awaiter(_this, void 0, void 0, function () { var _a, _b; return __generator(this, function (_c) {
+    switch (_c.label) {
+        case 0:
+            _b = (_a = util_1.OutputHandlers).base;
+            return [4 /*yield*/, exports.operateForBaseCommand(cmdMap, context)];
+        case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+    }
 }); }); };
 //# sourceMappingURL=execution.js.map

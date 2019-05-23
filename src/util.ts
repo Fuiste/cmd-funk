@@ -4,7 +4,14 @@ import fs from "fs";
 import { Logger } from "./logger";
 import minimist from "minimist";
 
-export namespace Argparsers {
+export namespace OutputHandlers {
+  export const base = async (res: CommandOutput) => {
+    if (ArgParsers.shouldPrintToConsole()) Logger.printToConsole(res);
+    if (ArgParsers.shouldWriteRaw()) FileOperations.writeRawToFile(res);
+  };
+}
+
+export namespace ArgParsers {
   /**
    * Wrapper for minimist argument parser.
    */
@@ -39,9 +46,9 @@ export namespace FileOperations {
    * @param res a command response
    */
   export const writeRawToFile = (res: CommandOutput) => {
-    Logger.debug(`Writing output to ${Argparsers.getOutFilePath()}`);
+    Logger.debug(`Writing output to ${ArgParsers.getOutFilePath()}`);
     fs.writeFileSync(
-      Argparsers.getOutFilePath(),
+      ArgParsers.getOutFilePath(),
       JSON.stringify(res.raw),
       "utf-8"
     );

@@ -8,10 +8,20 @@ var chalk_1 = __importDefault(require("chalk"));
 var figlet_1 = __importDefault(require("figlet"));
 var Logger;
 (function (Logger) {
+    /**
+     * Writes an ascii art message to the console
+     *
+     * @param message a message to display
+     */
     Logger.greet = function (message) {
-        if (!util_1.Argparsers.silent())
+        if (!util_1.ArgParsers.silent())
             console.log(chalk_1.default.blue(figlet_1.default.textSync(message, "Larry 3D")));
     };
+    /**
+     * Prints the result of a command to the console
+     *
+     * @param output a commans output
+     */
     Logger.printToConsole = function (output) {
         var status = output.error
             ? util_1.Typeface.error("Error!")
@@ -19,7 +29,7 @@ var Logger;
         console.log(util_1.Typeface.bold(status) + "\n\n" + output.console);
     };
     Logger.debug = function (message) {
-        if (!util_1.Argparsers.silent())
+        if (!util_1.ArgParsers.silent())
             console.log(util_1.Typeface.progress(message));
     };
     Logger.info = function (message) { return console.log(util_1.Typeface.base(message)); };

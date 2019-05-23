@@ -1,6 +1,9 @@
 import { CommandOutput } from "./types";
 import minimist from "minimist";
-export declare namespace Argparsers {
+export declare namespace OutputHandlers {
+    const base: (res: CommandOutput) => Promise<void>;
+}
+export declare namespace ArgParsers {
     /**
      * Wrapper for minimist argument parser.
      */

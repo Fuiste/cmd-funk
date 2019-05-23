@@ -1,8 +1,8 @@
 import { Command, CommandMap } from "./types";
 /**
- * Generates a command object based upon the arguments provided in the command line.
+ * Generates a command object based upon the arguments provided in the command line
  *
- * @param context a custom command context, which will be available in operation logic.
+ * @param context a custom command context, which will be available in operation logic
  */
 export declare const getBaseCommand: <CtxType>(context?: CtxType | undefined) => Command<CtxType>;
 /**
@@ -25,3 +25,16 @@ export declare const popCommand: <CtxType>(command: Command<CtxType>) => Command
  * @param cmdMap a command map upon which to operate
  */
 export declare const popAndOperate: <CtxType>(command: Command<CtxType>, cmdMap: CommandMap<CtxType>) => Promise<import("./types").CommandOutput>;
+/**
+ * Helper function which gets the base command and runs it agains a given command map, taking in an optional custom context
+ *
+ * @param cmdMap a command map upon which to operate
+ * @param context a custom command context, which will be available in operation logic
+ */
+export declare const operateForBaseCommand: <CtxType>(cmdMap: CommandMap<CtxType>, context?: CtxType | undefined) => Promise<import("./types").CommandOutput>;
+/**
+ * Helper function which handles running the base command against a given command map, then writes the output to the correct destination.
+ * @param cmdMap a command map upon which to operate
+ * @param context a custom command context, which will be available in operation logic
+ */
+export declare const handleCommand: <CtxType>(cmdMap: CommandMap<CtxType>, context?: CtxType | undefined) => Promise<void>;
