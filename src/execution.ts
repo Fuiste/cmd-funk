@@ -2,9 +2,12 @@ import { Command, CommandMap, CommandContext } from "./types";
 import { Marshallers } from "./util";
 import minimist from "minimist";
 
-export const getBaseCommand = async <CtxType>(
+export const getArgv = (): minimist.ParsedArgs =>
+  minimist(process.argv.slice(2));
+
+export const getBaseCommand = <CtxType>(
   context?: CtxType
-): Promise<Command<CtxType>> => {
+): Command<CtxType> => {
   // Grab base args
   const argv = minimist(process.argv.slice(2));
 
@@ -14,9 +17,9 @@ export const getBaseCommand = async <CtxType>(
   return getBaseCommandWithContext({ ...ctxExtras, argv });
 };
 
-export const getBaseCommandWithContext = async <CtxType>(
+export const getBaseCommandWithContext = <CtxType>(
   ctx: CommandContext<CtxType>
-): Promise<Command<CtxType>> => {
+): Command<CtxType> => {
   let args = ctx.argv._;
   const cmd = args.shift();
 

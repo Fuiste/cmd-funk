@@ -52,24 +52,23 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var util_1 = require("./util");
 var minimist_1 = __importDefault(require("minimist"));
-exports.getBaseCommand = function (context) { return __awaiter(_this, void 0, void 0, function () {
-    var argv, ctxExtras;
-    return __generator(this, function (_a) {
-        argv = minimist_1.default(process.argv.slice(2));
-        ctxExtras = context ? context : {};
-        return [2 /*return*/, exports.getBaseCommandWithContext(__assign({}, ctxExtras, { argv: argv }))];
-    });
-}); };
-exports.getBaseCommandWithContext = function (ctx) { return __awaiter(_this, void 0, void 0, function () {
-    var args, cmd;
-    return __generator(this, function (_a) {
-        args = ctx.argv._;
-        cmd = args.shift();
-        if (!cmd)
-            throw "No command specified";
-        return [2 /*return*/, { cmd: cmd, args: args, ctx: ctx }];
-    });
-}); };
+exports.getArgv = function () {
+    return minimist_1.default(process.argv.slice(2));
+};
+exports.getBaseCommand = function (context) {
+    // Grab base args
+    var argv = minimist_1.default(process.argv.slice(2));
+    // Build extras
+    var ctxExtras = context ? context : {};
+    return exports.getBaseCommandWithContext(__assign({}, ctxExtras, { argv: argv }));
+};
+exports.getBaseCommandWithContext = function (ctx) {
+    var args = ctx.argv._;
+    var cmd = args.shift();
+    if (!cmd)
+        throw "No command specified";
+    return { cmd: cmd, args: args, ctx: ctx };
+};
 exports.operateForCommand = function (command, cmdMap) { return __awaiter(_this, void 0, void 0, function () {
     var e_1;
     return __generator(this, function (_a) {
