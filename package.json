@@ -1,0 +1,25 @@
+{
+  "name": "cmd-funk",
+  "version": "0.0.1",
+  "description": "A minimal functional command line library",
+  "main": "bin/index.js",
+  "scripts": {
+    "clean": "rm -rf node_modules",
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "repository": "https://github.com/Fuiste/cmd-funk.git",
+  "author": "Rudy Pelrine <drawncloser@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "figlet": "^1.2.1",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.2.0",
+    "@types/minimist": "^1.2.0",
+    "@types/node": "^12.0.2",
+    "typescript": "^3.4.5"
+  }
+}
