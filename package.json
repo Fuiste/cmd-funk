@@ -1,6 +1,6 @@
 {
   "name": "cmd-funk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A minimal functional command line library",
   "main": "bin/index.js",
   "types": "bim/index.d.ts",
