@@ -1,41 +1,61 @@
-import { CommandOutput, Command } from "./types";
+import { CommandOutput } from "./types";
 import chalk from "chalk";
 import fs from "fs";
-import minimist from "minimist";
 import { Logger } from "./logger";
+import minimist from "minimist";
 
 export namespace Argparsers {
-  export const silent = (argv: minimist.ParsedArgs) => !!argv["silent"];
+  /**
+   * Wrapper for minimist argument parser.
+   */
+  export const getArgv = (): minimist.ParsedArgs =>
+    minimist(process.argv.slice(2));
 
-  export const shouldWriteRaw = (argv: minimist.ParsedArgs) =>
-    !!argv["outFile"];
+  /**
+   * Is the --silent flag present?
+   */
+  export const silent = () => !!getArgv()["silent"];
 
-  export const shouldPrintToConsole = (argv: minimist.ParsedArgs) =>
-    !argv["outFile"];
+  /**
+   * Is the --outFile flag present?
+   */
+  export const shouldWriteRaw = () => !!getArgv()["outFile"];
 
-  export const getOutFilePath = (argv: minimist.ParsedArgs) =>
-    argv["outFile"] as string;
+  /**
+   * Should the CLI output to the command line?
+   */
+  export const shouldPrintToConsole = () => !getArgv()["outFile"];
+
+  /**
+   * Gets the path specified in the --outfile flag
+   */
+  export const getOutFilePath = () => getArgv()["outFile"] as string;
 }
 
 export namespace FileOperations {
-  export const writeRawToFile = <CtxType>(
-    res: CommandOutput,
-    ctx: Command<CtxType>["ctx"]
-  ) => {
-    Logger.progress(
-      `Writing output to ${Argparsers.getOutFilePath(ctx.argv)}`,
-      ctx
-    );
+  /**
+   * Writes the raw response from a command to the desired file.
+   *
+   * @param res a command response
+   */
+  export const writeRawToFile = (res: CommandOutput) => {
+    Logger.debug(`Writing output to ${Argparsers.getOutFilePath()}`);
     fs.writeFileSync(
-      Argparsers.getOutFilePath(ctx.argv),
+      Argparsers.getOutFilePath(),
       JSON.stringify(res.raw),
       "utf-8"
     );
-    Logger.progress("Success!", ctx);
+    Logger.debug("Success!");
   };
 }
 
 export namespace Marshallers {
+  /**
+   * Marshalls an error into a command response
+   *
+   * @param error an error message
+   * @param cmd the optional command from which this error spawned
+   */
   export const error = (error: string, cmd?: string): CommandOutput => ({
     raw: null,
     error: true,
@@ -47,6 +67,11 @@ export namespace Marshallers {
     ),
   });
 
+  /**
+   * Marshalls command map help text to an output
+   *
+   * @param cmdMap a map of commands to help text
+   */
   export const help = (cmdMap: { [cmd: string]: string }): CommandOutput => ({
     raw: null,
     console: Typeface.base(
@@ -66,6 +91,11 @@ export namespace Typeface {
 
   export const bold = (s: string) => chalk.bold(s);
 
+  /**
+   * Makes a column representation of a key/value dictionary for easy printing to console
+   *
+   * @param colMap a map of keys and values to columnize
+   */
   export const makeColumns = (colMap: { [key: string]: string }) => {
     const longestKey = Object.keys(colMap).reduce((a, b) =>
       a.length > b.length ? a : b

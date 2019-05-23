@@ -52,23 +52,31 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var util_1 = require("./util");
 var minimist_1 = __importDefault(require("minimist"));
-exports.getArgv = function () {
-    return minimist_1.default(process.argv.slice(2));
-};
+/**
+ * Generates a command object based upon the arguments provided in the command line.
+ *
+ * @param context a custom command context, which will be available in operation logic.
+ */
 exports.getBaseCommand = function (context) {
     // Grab base args
     var argv = minimist_1.default(process.argv.slice(2));
     // Build extras
     var ctxExtras = context ? context : {};
-    return exports.getBaseCommandWithContext(__assign({}, ctxExtras, { argv: argv }));
+    return getBaseCommandWithContext(__assign({}, ctxExtras, { argv: argv }));
 };
-exports.getBaseCommandWithContext = function (ctx) {
+var getBaseCommandWithContext = function (ctx) {
     var args = ctx.argv._;
     var cmd = args.shift();
     if (!cmd)
         throw "No command specified";
     return { cmd: cmd, args: args, ctx: ctx };
 };
+/**
+ * Runs the command specified by the command object, using a command map for operation definitions.
+ *
+ * @param command a command object
+ * @param cmdMap the map of operations upon which to apply the command
+ */
 exports.operateForCommand = function (command, cmdMap) { return __awaiter(_this, void 0, void 0, function () {
     var e_1;
     return __generator(this, function (_a) {
@@ -88,6 +96,11 @@ exports.operateForCommand = function (command, cmdMap) { return __awaiter(_this,
         }
     });
 }); };
+/**
+ * Creates a new command from an existing command by popping the next strong from the available arguments.
+ *
+ * @param command the command from which to build a new command.
+ */
 exports.popCommand = function (command) {
     if (command.args.length < 1)
         throw "Must specify a command";
@@ -101,6 +114,12 @@ exports.popCommand = function (command) {
         ctx: command.ctx,
     };
 };
+/**
+ * Helper function based on operateForCommand which also calls popCommand.  Used for nested command maps.
+ *
+ * @param command a command object from which to create a new command
+ * @param cmdMap a command map upon which to operate
+ */
 exports.popAndOperate = function (command, cmdMap) { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
     return [2 /*return*/, exports.operateForCommand(exports.popCommand(command), cmdMap)];
 }); }); };

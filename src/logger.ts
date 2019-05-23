@@ -4,9 +4,9 @@ import chalk from "chalk";
 import figlet from "figlet";
 
 export namespace Logger {
-  export const sayHello = <CtxType>(ctx: Command<CtxType>["ctx"]) => {
-    if (!Args.silent(ctx.argv))
-      console.log(chalk.blue(figlet.textSync("HMI CLI", "Larry 3D")));
+  export const greet = (message: string) => {
+    if (!Args.silent())
+      console.log(chalk.blue(figlet.textSync(message, "Larry 3D")));
   };
 
   export const printToConsole = (output: CommandOutput) => {
@@ -17,15 +17,11 @@ export namespace Logger {
     console.log(`${Typeface.bold(status)}\n\n${output.console}`);
   };
 
-  export const progress = <CtxType>(
-    prog: string,
-    ctx: Command<CtxType>["ctx"]
-  ) => {
-    if (!Args.silent(ctx.argv)) console.log(Typeface.progress(prog));
+  export const debug = (message: string) => {
+    if (!Args.silent()) console.log(Typeface.progress(message));
   };
 
-  export const important = <CtxType>(
-    log: string,
-    ctx: Command<CtxType>["ctx"]
-  ) => console.log(Typeface.base(log));
+  export const info = (message: string) => console.log(Typeface.base(message));
+
+  export const warn = (message: string) => console.log(Typeface.error(message));
 }

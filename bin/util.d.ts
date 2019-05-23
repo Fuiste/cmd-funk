@@ -1,16 +1,48 @@
 import { CommandOutput } from "./types";
 import minimist from "minimist";
 export declare namespace Argparsers {
-    const silent: (argv: minimist.ParsedArgs) => boolean;
-    const shouldWriteRaw: (argv: minimist.ParsedArgs) => boolean;
-    const shouldPrintToConsole: (argv: minimist.ParsedArgs) => boolean;
-    const getOutFilePath: (argv: minimist.ParsedArgs) => string;
+    /**
+     * Wrapper for minimist argument parser.
+     */
+    const getArgv: () => minimist.ParsedArgs;
+    /**
+     * Is the --silent flag present?
+     */
+    const silent: () => boolean;
+    /**
+     * Is the --outFile flag present?
+     */
+    const shouldWriteRaw: () => boolean;
+    /**
+     * Should the CLI output to the command line?
+     */
+    const shouldPrintToConsole: () => boolean;
+    /**
+     * Gets the path specified in the --outfile flag
+     */
+    const getOutFilePath: () => string;
 }
 export declare namespace FileOperations {
-    const writeRawToFile: <CtxType>(res: CommandOutput, ctx: import("./types").CommandContext<CtxType>) => void;
+    /**
+     * Writes the raw response from a command to the desired file.
+     *
+     * @param res a command response
+     */
+    const writeRawToFile: (res: CommandOutput) => void;
 }
 export declare namespace Marshallers {
+    /**
+     * Marshalls an error into a command response
+     *
+     * @param error an error message
+     * @param cmd the optional command from which this error spawned
+     */
     const error: (error: string, cmd?: string | undefined) => CommandOutput;
+    /**
+     * Marshalls command map help text to an output
+     *
+     * @param cmdMap a map of commands to help text
+     */
     const help: (cmdMap: {
         [cmd: string]: string;
     }) => CommandOutput;
@@ -21,6 +53,11 @@ export declare namespace Typeface {
     const success: (s: string) => string;
     const base: (s: string) => string;
     const bold: (s: string) => string;
+    /**
+     * Makes a column representation of a key/value dictionary for easy printing to console
+     *
+     * @param colMap a map of keys and values to columnize
+     */
     const makeColumns: (colMap: {
         [key: string]: string;
     }) => string;

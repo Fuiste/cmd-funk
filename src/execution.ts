@@ -2,9 +2,11 @@ import { Command, CommandMap, CommandContext } from "./types";
 import { Marshallers } from "./util";
 import minimist from "minimist";
 
-export const getArgv = (): minimist.ParsedArgs =>
-  minimist(process.argv.slice(2));
-
+/**
+ * Generates a command object based upon the arguments provided in the command line.
+ *
+ * @param context a custom command context, which will be available in operation logic.
+ */
 export const getBaseCommand = <CtxType>(
   context?: CtxType
 ): Command<CtxType> => {
@@ -17,7 +19,7 @@ export const getBaseCommand = <CtxType>(
   return getBaseCommandWithContext({ ...ctxExtras, argv });
 };
 
-export const getBaseCommandWithContext = <CtxType>(
+const getBaseCommandWithContext = <CtxType>(
   ctx: CommandContext<CtxType>
 ): Command<CtxType> => {
   let args = ctx.argv._;
@@ -28,6 +30,12 @@ export const getBaseCommandWithContext = <CtxType>(
   return { cmd, args, ctx };
 };
 
+/**
+ * Runs the command specified by the command object, using a command map for operation definitions.
+ *
+ * @param command a command object
+ * @param cmdMap the map of operations upon which to apply the command
+ */
 export const operateForCommand = async <CtxType>(
   command: Command<CtxType>,
   cmdMap: CommandMap<CtxType>
@@ -42,6 +50,11 @@ export const operateForCommand = async <CtxType>(
   }
 };
 
+/**
+ * Creates a new command from an existing command by popping the next strong from the available arguments.
+ *
+ * @param command the command from which to build a new command.
+ */
 export const popCommand = <CtxType>(
   command: Command<CtxType>
 ): Command<CtxType> => {
@@ -58,6 +71,12 @@ export const popCommand = <CtxType>(
   };
 };
 
+/**
+ * Helper function based on operateForCommand which also calls popCommand.  Used for nested command maps.
+ *
+ * @param command a command object from which to create a new command
+ * @param cmdMap a command map upon which to operate
+ */
 export const popAndOperate = async <CtxType>(
   command: Command<CtxType>,
   cmdMap: CommandMap<CtxType>

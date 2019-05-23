@@ -8,9 +8,9 @@ var chalk_1 = __importDefault(require("chalk"));
 var figlet_1 = __importDefault(require("figlet"));
 var Logger;
 (function (Logger) {
-    Logger.sayHello = function (ctx) {
-        if (!util_1.Argparsers.silent(ctx.argv))
-            console.log(chalk_1.default.blue(figlet_1.default.textSync("HMI CLI", "Larry 3D")));
+    Logger.greet = function (message) {
+        if (!util_1.Argparsers.silent())
+            console.log(chalk_1.default.blue(figlet_1.default.textSync(message, "Larry 3D")));
     };
     Logger.printToConsole = function (output) {
         var status = output.error
@@ -18,10 +18,11 @@ var Logger;
             : util_1.Typeface.success("Success!");
         console.log(util_1.Typeface.bold(status) + "\n\n" + output.console);
     };
-    Logger.progress = function (prog, ctx) {
-        if (!util_1.Argparsers.silent(ctx.argv))
-            console.log(util_1.Typeface.progress(prog));
+    Logger.debug = function (message) {
+        if (!util_1.Argparsers.silent())
+            console.log(util_1.Typeface.progress(message));
     };
-    Logger.important = function (log, ctx) { return console.log(util_1.Typeface.base(log)); };
+    Logger.info = function (message) { return console.log(util_1.Typeface.base(message)); };
+    Logger.warn = function (message) { return console.log(util_1.Typeface.error(message)); };
 })(Logger = exports.Logger || (exports.Logger = {}));
 //# sourceMappingURL=logger.js.map
