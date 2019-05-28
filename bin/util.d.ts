@@ -85,6 +85,6 @@ export declare namespace Typeface {
      * @param colMap a map of keys and values to columnize
      */
     const makeColumns: (colMap: {
-        [key: string]: string;
+        [key: string]: string | number;
     }) => string;
 }

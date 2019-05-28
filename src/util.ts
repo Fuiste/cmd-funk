@@ -127,7 +127,7 @@ export namespace Typeface {
    *
    * @param colMap a map of keys and values to columnize
    */
-  export const makeColumns = (colMap: { [key: string]: string }) => {
+  export const makeColumns = (colMap: { [key: string]: string | number }) => {
     const longestKey = Object.keys(colMap).reduce((a, b) =>
       a.length > b.length ? a : b
     ).length;
