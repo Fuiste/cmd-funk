@@ -1,16 +1,16 @@
 import minimist from "minimist";
 
-export type Command<T> = {
+export type Command<T = {}> = {
   cmd: string;
   args: string[];
   ctx: CommandContext<T>;
 };
 
-export type CommandContext<T> = T & {
+export type CommandContext<T = {}> = T & {
   argv: minimist.ParsedArgs;
 };
 
-export type CommandMap<T> = {
+export type CommandMap<T = {}> = {
   [key: string]: (c: Command<T>) => CommandOutput | Promise<CommandOutput>;
   help: () => CommandOutput;
 };
@@ -21,6 +21,6 @@ export type CommandOutput = {
   error?: boolean;
 };
 
-export type OperatorFunction<CtxType, Output> = (
-  cmd: Command<CtxType>
+export type OperatorFunction<Output, T = {}> = (
+  cmd: Command<T>
 ) => Promise<Output>;
