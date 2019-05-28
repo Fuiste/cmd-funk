@@ -5,12 +5,20 @@ import { Logger } from "./logger";
 import minimist from "minimist";
 
 export namespace OutputHandlers {
-  export const base = async (res: CommandOutput) => {
+  /**
+   * Default command output handler function
+   *
+   * @param res a command response
+   */
+  export const base = (res: CommandOutput) => {
     if (ArgParsers.shouldPrintToConsole()) Logger.printToConsole(res);
     if (ArgParsers.shouldWriteRaw()) FileOperations.writeRawToFile(res);
   };
 }
 
+/**
+ * Argument parser helpers
+ */
 export namespace ArgParsers {
   /**
    * Wrapper for minimist argument parser.
@@ -22,6 +30,13 @@ export namespace ArgParsers {
    * Is the --silent flag present?
    */
   export const silent = () => !!getArgv()["silent"];
+
+  /**
+   * Returns true iff the requested flag exists in the CLI args
+   *
+   * @param flag the flag to check
+   */
+  export const hasFlag = (flag: string) => !!getArgv()[flag];
 
   /**
    * Is the --outFile flag present?
@@ -39,6 +54,9 @@ export namespace ArgParsers {
   export const getOutFilePath = () => getArgv()["outFile"] as string;
 }
 
+/**
+ * File I/O operations
+ */
 export namespace FileOperations {
   /**
    * Writes the raw response from a command to the desired file.
@@ -56,6 +74,9 @@ export namespace FileOperations {
   };
 }
 
+/**
+ * Console marshallers
+ */
 export namespace Marshallers {
   /**
    * Marshalls an error into a command response
@@ -87,6 +108,9 @@ export namespace Marshallers {
   });
 }
 
+/**
+ * Typeface helpers
+ */
 export namespace Typeface {
   export const progress = (s: string) => chalk.dim(s);
 

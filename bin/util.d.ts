@@ -1,8 +1,16 @@
 import { CommandOutput } from "./types";
 import minimist from "minimist";
 export declare namespace OutputHandlers {
-    const base: (res: CommandOutput) => Promise<void>;
+    /**
+     * Default command output handler function
+     *
+     * @param res a command response
+     */
+    const base: (res: CommandOutput) => void;
 }
+/**
+ * Argument parser helpers
+ */
 export declare namespace ArgParsers {
     /**
      * Wrapper for minimist argument parser.
@@ -12,6 +20,12 @@ export declare namespace ArgParsers {
      * Is the --silent flag present?
      */
     const silent: () => boolean;
+    /**
+     * Returns true iff the requested flag exists in the CLI args
+     *
+     * @param flag the flag to check
+     */
+    const hasFlag: (flag: string) => boolean;
     /**
      * Is the --outFile flag present?
      */
@@ -25,6 +39,9 @@ export declare namespace ArgParsers {
      */
     const getOutFilePath: () => string;
 }
+/**
+ * File I/O operations
+ */
 export declare namespace FileOperations {
     /**
      * Writes the raw response from a command to the desired file.
@@ -33,6 +50,9 @@ export declare namespace FileOperations {
      */
     const writeRawToFile: (res: CommandOutput) => void;
 }
+/**
+ * Console marshallers
+ */
 export declare namespace Marshallers {
     /**
      * Marshalls an error into a command response
@@ -50,6 +70,9 @@ export declare namespace Marshallers {
         [cmd: string]: string;
     }) => CommandOutput;
 }
+/**
+ * Typeface helpers
+ */
 export declare namespace Typeface {
     const progress: (s: string) => string;
     const error: (s: string) => string;
