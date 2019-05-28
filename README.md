@@ -1,4 +1,4 @@
-# `cmd-funk`
+# `cmd-funk` ("command funk")
 
 A map-based composable command line framework.
 
