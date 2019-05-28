@@ -1,11 +1,12 @@
-# Command Funk
+# `cmd-funk`
 
-A command line framework without training wheels.
+A map-based composable command line framework.
 
-## Why use Command Funk?
+## Why use `cmd-funk`?
 
-- **Functional:** To the extent that it is reasonable, Command Funk doesn't explocitly track state. There's no classes, minimal initialization, as little overhead as possible.
-- **Modern:** Command Funk is written in Typescript and takes advantage of `async/await`, so no outdated access patterns!
+- **Composable:** Every command line tool has different requirements. Insofar as it is useful, `cmd-funk` provides the tools to create your tools in whatever way you see fit.
+- **Functional:** To the extent that it's reasonable, `cmd-funk` doesn't explocitly track state. There's no classes, minimal initialization, as little overhead as possible.
+- **Modern:** `cmd-funk` is written in Typescript and takes advantage of `async/await`, so no outdated access patterns!
 
 ## Installation
 
@@ -15,6 +16,14 @@ Use your favorite package manager and install `cmd-funk`, for example:
 npm install cmd-funk
 ```
 
-## Get Started
+## Hello World Example
 
-This is still super early, but check out the [hello world](https://github.com/Fuiste/cmd-funk-hello) example if you're curious.
+This is still super early, check out the [hello world](https://github.com/Fuiste/cmd-funk-hello) example to see something simple.
+
+## Concepts
+
+There are 3 building blocks to a `cmd-funk` application, **Mappers**, **Marshallers**, and **Outputs**.
+
+- **Mappers** are objects that map commands to their implementations (or other mappers!).
+- **Marshallers** take the output of an implementation and convert it to something `cmd-funk` understands.
+- **Outputs** are special objects that store information about the result of a command.
