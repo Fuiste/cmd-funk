@@ -11,7 +11,7 @@ export declare namespace Logger {
      *
      * @param output a commans output
      */
-    const printToConsole: (output: CommandOutput) => void;
+    const printToConsole: (output: CommandOutput<any>) => void;
     const debug: (message: string) => void;
     const info: (message: string) => void;
     const warn: (message: string) => void;

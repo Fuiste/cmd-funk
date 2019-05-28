@@ -1,22 +1,22 @@
 import minimist from "minimist";
-export declare type Command<T> = {
+export declare type Command<CtxType> = {
     cmd: string;
     args: string[];
-    ctx: CommandContext<T>;
+    ctx: CommandContext<CtxType>;
 };
-export declare type CommandContext<T> = T & {
+export declare type CommandContext<CtxType> = CtxType & {
     argv: minimist.ParsedArgs;
 };
-export declare type CommandMap<T> = {
-    [key: string]: (c: Command<T>) => CommandOutput | Promise<CommandOutput>;
-    help: () => CommandOutput;
+export declare type CommandMap<CtxType> = {
+    [key: string]: (c: Command<CtxType>) => CommandOutput | Promise<CommandOutput>;
+    help: () => CommandOutput<null>;
 };
-export declare type CommandOutput = {
-    raw: any;
+export declare type CommandOutput<Output = any> = {
+    raw: Output;
     console: string;
     error?: boolean;
 };
-export declare type OperatorFunction<Output, T> = (cmd: Command<T>) => Promise<Output>;
+export declare type OperatorFunction<Output, CtxType> = (cmd: Command<CtxType>) => Promise<Output>;
 export declare type SimpleCommand = Command<{}>;
 export declare type SimpleCommandContext = CommandContext<{}>;
 export declare type SimpleCommandMap = CommandMap<{}>;

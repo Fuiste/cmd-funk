@@ -6,7 +6,7 @@ export declare namespace OutputHandlers {
      *
      * @param res a command response
      */
-    const base: (res: CommandOutput) => void;
+    const base: (res: CommandOutput<any>) => void;
 }
 /**
  * Argument parser helpers
@@ -48,7 +48,7 @@ export declare namespace FileOperations {
      *
      * @param res a command response
      */
-    const writeRawToFile: (res: CommandOutput) => void;
+    const writeRawToFile: (res: CommandOutput<any>) => void;
 }
 /**
  * Console marshallers
@@ -60,7 +60,7 @@ export declare namespace Marshallers {
      * @param error an error message
      * @param cmd the optional command from which this error spawned
      */
-    const error: (error: string, cmd?: string | undefined) => CommandOutput;
+    const error: (error: string, cmd?: string | undefined) => CommandOutput<any>;
     /**
      * Marshalls command map help text to an output
      *
@@ -68,7 +68,7 @@ export declare namespace Marshallers {
      */
     const help: (cmdMap: {
         [cmd: string]: string;
-    }) => CommandOutput;
+    }) => CommandOutput<any>;
 }
 /**
  * Typeface helpers
