@@ -60,7 +60,7 @@ export declare namespace Marshallers {
      * @param error an error message
      * @param cmd the optional command from which this error spawned
      */
-    const error: (error: string, cmd?: string | undefined) => CommandOutput<any>;
+    const error: (error: string, cmd?: string | undefined) => CommandOutput<null>;
     /**
      * Marshalls command map help text to an output
      *
@@ -68,7 +68,24 @@ export declare namespace Marshallers {
      */
     const help: (cmdMap: {
         [cmd: string]: string;
-    }) => CommandOutput<any>;
+    }) => CommandOutput<null>;
+    /**
+     * Marshalls a dictionary of strings or numbers to an output
+     *
+     * @param output the key/value dictionary
+     * @param title an optional title to append to the console out
+     */
+    const keyValue: (output: {
+        [key: string]: string | number;
+    }, title?: string | undefined) => CommandOutput<{
+        [key: string]: string | number;
+    }>;
+    /**
+     * Marshalls a string to an output
+     *
+     * @param output the string to marshall
+     */
+    const str: (output: string) => CommandOutput<string>;
 }
 /**
  * Typeface helpers

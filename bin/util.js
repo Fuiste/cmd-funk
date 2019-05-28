@@ -99,6 +99,27 @@ var Marshallers;
         raw: null,
         console: Typeface.base("Available commands:\n\n" + Typeface.makeColumns(cmdMap)),
     }); };
+    /**
+     * Marshalls a dictionary of strings or numbers to an output
+     *
+     * @param output the key/value dictionary
+     * @param title an optional title to append to the console out
+     */
+    Marshallers.keyValue = function (output, title) { return ({
+        raw: output,
+        console: title
+            ? Typeface.bold(title + "\n")
+            : "" + Typeface.makeColumns(output),
+    }); };
+    /**
+     * Marshalls a string to an output
+     *
+     * @param output the string to marshall
+     */
+    Marshallers.str = function (output) { return ({
+        raw: output,
+        console: Typeface.base(output),
+    }); };
 })(Marshallers = exports.Marshallers || (exports.Marshallers = {}));
 /**
  * Typeface helpers

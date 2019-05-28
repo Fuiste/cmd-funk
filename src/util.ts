@@ -84,7 +84,7 @@ export namespace Marshallers {
    * @param error an error message
    * @param cmd the optional command from which this error spawned
    */
-  export const error = (error: string, cmd?: string): CommandOutput => ({
+  export const error = (error: string, cmd?: string): CommandOutput<null> => ({
     raw: null,
     error: true,
     console: Typeface.error(
@@ -100,11 +100,39 @@ export namespace Marshallers {
    *
    * @param cmdMap a map of commands to help text
    */
-  export const help = (cmdMap: { [cmd: string]: string }): CommandOutput => ({
+  export const help = (cmdMap: {
+    [cmd: string]: string;
+  }): CommandOutput<null> => ({
     raw: null,
     console: Typeface.base(
       "Available commands:\n\n" + Typeface.makeColumns(cmdMap)
     ),
+  });
+
+  /**
+   * Marshalls a dictionary of strings or numbers to an output
+   *
+   * @param output the key/value dictionary
+   * @param title an optional title to append to the console out
+   */
+  export const keyValue = (
+    output: { [key: string]: string | number },
+    title?: string
+  ): CommandOutput<{ [key: string]: string | number }> => ({
+    raw: output,
+    console: title
+      ? Typeface.bold(`${title}\n`)
+      : "" + Typeface.makeColumns(output),
+  });
+
+  /**
+   * Marshalls a string to an output
+   *
+   * @param output the string to marshall
+   */
+  export const str = (output: string): CommandOutput<string> => ({
+    raw: output,
+    console: Typeface.base(output),
   });
 }
 

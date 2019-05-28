@@ -8,8 +8,6 @@ A command line framework without training wheels.
 - **Unopinionated:** Whenever possible, command funk wants you to write pure Node, rather than forcing you into esoteric handlers and callbacks.
 - **Modern:** Command Funk is written in Typescript and takes advantage of `async/await`, so no outdated access patterns!
 
-## Hello World
+## Get Started
 
-```bash
-npm install cmd-funk
-```
+UNDER CONSTRUCTION
