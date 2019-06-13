@@ -5,7 +5,7 @@ A map-based composable call and response framework. `cmd-funk` is a great option
 ## Why use `cmd-funk`?
 
 - **Composable:** Every command line tool has different requirements. Insofar as it is useful, `cmd-funk` provides the tools to create your tools in whatever way you see fit.
-- **Functional:** To the extent that it's reasonable, `cmd-funk` doesn't explocitly track state. There's no classes, minimal initialization, as little overhead as possible.
+- **Functional:** To the extent that it's reasonable, `cmd-funk` doesn't explicitly track state. There's no classes, minimal initialization, as little overhead as possible.
 - **Modern:** `cmd-funk` is written in Typescript and takes advantage of `async/await`, so no outdated access patterns!
 
 ## Contents
@@ -19,7 +19,7 @@ A map-based composable call and response framework. `cmd-funk` is a great option
 Use your favorite package manager and install `cmd-funk`, for example:
 
 ```bash
-npm install cmd-funk
+npm i cmd-funk
 ```
 
 ## Concepts
@@ -32,7 +32,7 @@ There are 3 building blocks to a `cmd-funk` application, **Mappers**, **Marshall
 
 ### Mappers
 
-Mappers are simply dictionaries that lead to the implementation logic of your commands, as well as the necessary help text associated with them.
+Mappers are dictionaries that lead to the implementation logic of your commands, as well as the necessary help text associated with them.
 
 Let's say you've got a simple CLI with three commands; `add`, `subtract`, and `multiply`. With this architecture, you'd need just one mapper in the following shape:
 
