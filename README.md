@@ -88,6 +88,6 @@ UNDER CONSTRUCTION
 
 ## Examples
 
-### Hello World
+### [Hello World](https://github.com/Fuiste/cmd-funk-hello)
 
-This is still super early, check out the [hello world](https://github.com/Fuiste/cmd-funk-hello) example to see something simple.
+A Hello world CLI using `cmd-funk`.
