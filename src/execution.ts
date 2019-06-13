@@ -1,4 +1,4 @@
-import { Command, CommandMap, CommandContext } from "./types";
+import { Command, Mapper, CommandContext } from "./types";
 import { Marshallers, OutputHandlers } from "./util";
 import minimist from "minimist";
 
@@ -38,7 +38,7 @@ const getBaseCommandWithContext = <CtxType>(
  */
 export const operateForCommand = async <CtxType>(
   command: Command<CtxType>,
-  cmdMap: CommandMap<CtxType>
+  cmdMap: Mapper<CtxType>
 ) => {
   if (!cmdMap[command.cmd])
     return Marshallers.error("Invalid command", command.cmd);
@@ -79,7 +79,7 @@ export const popCommand = <CtxType>(
  */
 export const popAndOperate = async <CtxType>(
   command: Command<CtxType>,
-  cmdMap: CommandMap<CtxType>
+  cmdMap: Mapper<CtxType>
 ) => operateForCommand(popCommand(command), cmdMap);
 
 /**
@@ -89,7 +89,7 @@ export const popAndOperate = async <CtxType>(
  * @param context a custom command context, which will be available in operation logic
  */
 export const operateForBaseCommand = async <CtxType>(
-  cmdMap: CommandMap<CtxType>,
+  cmdMap: Mapper<CtxType>,
   context?: CtxType
 ) => operateForCommand(getBaseCommand(context), cmdMap);
 
@@ -99,6 +99,6 @@ export const operateForBaseCommand = async <CtxType>(
  * @param context a custom command context, which will be available in operation logic
  */
 export const handleCommand = async <CtxType>(
-  cmdMap: CommandMap<CtxType>,
+  cmdMap: Mapper<CtxType>,
   context?: CtxType
 ) => OutputHandlers.base(await operateForBaseCommand(cmdMap, context));

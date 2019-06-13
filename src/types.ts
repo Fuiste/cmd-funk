@@ -11,7 +11,7 @@ export type CommandContext<CtxType> = CtxType & {
   argv: minimist.ParsedArgs;
 };
 
-export type CommandMap<CtxType> = {
+export type Mapper<CtxType> = {
   [key: string]: (
     c: Command<CtxType>
   ) => CommandOutput | Promise<CommandOutput>;
@@ -33,6 +33,6 @@ export type SimpleCommand = Command<{}>;
 
 export type SimpleCommandContext = CommandContext<{}>;
 
-export type SimpleCommandMap = CommandMap<{}>;
+export type SimpleMapper = Mapper<{}>;
 
 export type SimpleOperatorFunction<Output> = OperatorFunction<Output, {}>;
