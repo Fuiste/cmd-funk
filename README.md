@@ -80,7 +80,18 @@ So, what's going on?
 - **`Marshallers`** is a provided namespace within `cmd-funk` with implementations for some common marshaller use cases. They take in common return types and translate them to `cmd-funk` [outputs](#outputs).
 - **`SimpleCommand`** is a helper implementation of the command type to use if you don't need [custom contexts](#custom-contexts).
 
+#### Provided Marshallers
+
+`cmd-funk` ships with a few marshallers built in to get your project off the ground, they are as follows:
+
+- `error`: for marshalling error messages, and optionally the command from which they spawned.
+- `help`: for marshalling help text. The suggested use case is passing in a key/value map of available commands within a mapper.
+- `keyValue`: for mapping an object consisting of key/value pairs (with an optional title) to formatted console output.
+- `str`: for mapping simple strings to console output.
+
 ### Outputs
+
+`cmd-funk` provides the `CommandOutput<T>` type to simplify handling of command results ([source](./src/types.ts)). While use is not required, many helper functions leverage it, and all [marshallers](#marshallers) return objects of this type.
 
 ### Custom Contexts
 
